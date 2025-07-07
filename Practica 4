@@ -1,0 +1,38 @@
+# Instalamos el módulo para usar Google Authenticator
+sudo apt install libpam-google-authenticator
+
+# Limpiamos la terminal para tener mejor visibilidad
+clear
+
+# Ejecutamos la configuración inicial de Google Authenticator
+google-authenticator
+
+# Limpiamos de nuevo la pantalla
+clear
+
+# Intentamos acceder al archivo PAM (falló porque no era un editor)
+sudo /etc/pam.d/sshd
+
+# Ahora sí, abrimos el archivo PAM para editarlo
+sudo nano /etc/pam.d/sshd
+
+# Revisamos la configuración del cliente SSH
+sudo nano /etc/ssh/ssh_config
+
+# Revisamos también la configuración del servidor SSH
+sudo nano /etc/ssh/sshd_config
+
+# Reiniciamos el servicio SSH para aplicar los cambios
+sudo systemctl restart ssh
+
+# Intentamos también con el nombre completo del servicio
+sudo systemctl restart sshd.service
+
+# Limpiamos la terminal una vez más
+clear
+
+# Verificamos la IP del equipo
+ip ad
+
+# Consultamos el historial de comandos por si hace falta revisar algo
+history
