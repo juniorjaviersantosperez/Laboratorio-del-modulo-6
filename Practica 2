@@ -1,0 +1,55 @@
+# Habilitar servicios para que inicien automáticamente con el sistema
+sudo systemctl enable apache2 vsftpd ssh
+
+# Iniciar manualmente los servicios HTTP, FTP y SSH
+sudo systemctl start apache2 vsftpd ssh
+
+# Verificar que los servicios estén activos
+sudo systemctl status apache2 vsftpd ssh
+sudo systemctl status ssh
+
+# Ver reglas actuales de iptables con numeración
+sudo iptables -L -n --line-numbers
+
+# Bloquear el tráfico al puerto 80 (HTTP)
+sudo iptables -A INPUT -p tcp --dport 80 -j DROP
+
+# Bloquear el tráfico al puerto 21 (FTP)
+sudo iptables -A INPUT -p tcp --dport 21 -j DROP
+
+# Bloquear el tráfico al puerto 22 (SSH)
+sudo iptables -A INPUT -p tcp --dport 22 -j DROP
+
+# Verificar reglas aplicadas con iptables
+sudo iptables -L -n --line-numbers
+
+# Eliminar la regla que bloquea el puerto 80 (HTTP)
+sudo iptables -D INPUT -p tcp --dport 80 -j DROP
+
+# Eliminar la regla que bloquea el puerto 21 (FTP)
+sudo iptables -D INPUT -p tcp --dport 21 -j DROP
+
+# Eliminar la regla que bloquea el puerto 22 (SSH)
+sudo iptables -D INPUT -p tcp --dport 22 -j DROP
+
+# Verificar que las reglas fueron eliminadas
+sudo iptables -L -n --line-numbers
+
+# Activar el firewall UFW
+sudo ufw enable
+
+# Bloquear puertos 80 (HTTP), 22 (SSH) y 21 (FTP) con UFW
+sudo ufw deny 80/tcp
+sudo ufw deny 22/tcp
+sudo ufw deny 21/tcp
+
+# Permitir nuevamente puertos 80 (HTTP), 22 (SSH) y 21 (FTP)
+sudo ufw allow 80/tcp
+sudo ufw allow 22/tcp
+sudo ufw allow 21/tcp
+
+# Ver estado y reglas del firewall UFW con numeración
+sudo ufw status numbered
+
+# Ver todo el historial de comandos usados en la terminal
+history
