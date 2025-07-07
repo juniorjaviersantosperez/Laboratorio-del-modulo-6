@@ -1,0 +1,22 @@
+# Instalar gpg2
+sudo apt install gnupg2 -y
+
+# Generar clave GPG (interactiva)
+gpg2 --full-generate-key
+
+# Crear carpeta y archivo de prueba
+mkdir -p ~/Desktop/prueba
+cd ~/Desktop/prueba
+echo "Este es un archivo secreto del ITLA." > ITLA.txt
+
+# Cifrar el archivo
+gpg2 -e -r "casa" ITLA.txt
+
+# Mostrar contenido cifrado (ilegible)
+cat ITLA.txt.gpg
+
+# Descifrar el archivo
+gpg2 -d ITLA.txt.gpg > ITLA_decifrado.txt
+
+# Mostrar contenido descifrado
+cat ITLA_decifrado.txt
