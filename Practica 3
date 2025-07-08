@@ -1,0 +1,37 @@
+# Actualizar repositorios e instalar dependencias necesarias
+sudo apt update
+sudo apt install -y build-essential libpcap-dev libpcre3-dev libdumbnet-dev bison flex zlib1g-dev \
+liblzma-dev openssl libssl-dev libnghttp2-dev autoconf libtool
+
+# Crear directorios requeridos por Snort
+sudo mkdir -p /etc/snort/rules
+sudo mkdir -p /var/log/snort
+sudo mkdir -p /usr/local/lib/snort_dynamicrules
+
+# Ir al directorio personal
+cd ~
+
+# Descargar Snort versión 2.9.20
+wget https://www.snort.org/downloads/snort/snort-2.9.20.tar.gz
+
+# Descomprimir el archivo
+tar -xvzf snort-2.9.20.tar.gz
+
+# Entrar al directorio de Snort
+cd snort-2.9.20
+
+# Configurar Snort con soporte para Sourcefire
+./configure --enable-sourcefire
+
+# Compilar Snort
+make
+
+# Instalar Snort en el sistema
+sudo make install
+
+# Copiar el archivo de configuración y las reglas
+sudo cp ../snort-setup/config/snort.conf /etc/snort/snort.conf
+sudo cp ../snort-setup/config/local.rules /etc/snort/rules/local.rules
+
+# Ejecutamos Snort
+sudo snort -A console -q -c /etc/snort/snort.conf -i ens33
